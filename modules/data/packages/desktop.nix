@@ -71,7 +71,7 @@
         devour
         pamixer
         pulseaudio
-        dunst
+        xdg-utils
       ];
   };
 
@@ -123,6 +123,7 @@
   dendritic.modules.home.packages-email = { pkgs, ... }: {
     home.packages = with pkgs; [
       neomutt
+      notmuch
       msmtp
       isync
       abook

@@ -13,7 +13,7 @@
           };
           Service = {
             Type = "oneshot";
-            ExecStart = "${pkgs.zsh}/bin/zsh -c 'mbsync -c .config/isync/mbsyncrc -a -q'";
+            ExecStart = "${pkgs.zsh}/bin/zsh -c 'mbsync -c .config/isync/mbsyncrc -a -q && ${pkgs.notmuch}/bin/notmuch new'";
           };
           Install.wantedBy = [ "default.target" ];
         };

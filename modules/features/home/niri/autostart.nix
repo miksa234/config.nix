@@ -30,8 +30,11 @@
           "${lib.getExe pkgs.swayidle}"
           "-w"
           "timeout"
-          "600"
+          "300"
           "swaylock -f -c 000000"
+          "timeout"
+          "900"
+          "systemctl suspend-then-hibernate"
         ];
       }
     ];

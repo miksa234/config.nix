@@ -18,7 +18,15 @@
       zsh-fast-syntax-highlighting
       zsh-system-clipboard
       tmux
-      neovim
+      (symlinkJoin {
+        name = "neovim-wrapped";
+        paths = [ neovim ];
+        buildInputs = [ makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/nvim \
+            --prefix LD_LIBRARY_PATH : ${notmuch}/lib
+        '';
+      })
     ];
   };
 

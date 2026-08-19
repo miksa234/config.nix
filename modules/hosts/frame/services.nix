@@ -35,6 +35,7 @@
         fwupd.enable = true;
         tlp.enable = false;
         power-profiles-daemon.enable = true;
+        fprintd.enable = true;
       };
     };
 }

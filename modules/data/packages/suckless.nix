@@ -44,6 +44,7 @@
           xcompmgr
           xdotool
           scrot
+          dunst
         ]
         ++ (with suckless; [
           dwm
