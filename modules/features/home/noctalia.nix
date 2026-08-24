@@ -7,15 +7,12 @@
       ...
     }:
     {
-      imports = [
-        inputs.noctalia.homeModules.default
-      ];
-
       config = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
 
         programs.noctalia = {
           enable = true;
           systemd.enable = true;
+          package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
           settings = {
             theme = {

@@ -3,7 +3,6 @@
   dendritic.data.niriAutostart =
     { lib, pkgs }:
     [
-      { command = [ "noctalia" ]; }
       { command = [ "background" ]; }
       { command = [ "check-mail" ]; }
       {
@@ -33,7 +32,7 @@
           "300"
           "swaylock -f -c 000000"
           "timeout"
-          "900"
+          "3600"
           "systemctl suspend-then-hibernate"
         ];
       }

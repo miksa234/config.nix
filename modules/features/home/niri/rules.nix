@@ -2,7 +2,7 @@
 {
   dendritic.data.niriRules = [
     {
-      matches = [ { app-id = "spotify"; } ];
+      matches = [ { app-id = "Spotify"; } ];
       open-on-workspace = "r5";
       open-maximized = true;
     }
@@ -17,12 +17,6 @@
     {
       matches = [ { app-id = "telegram"; } ];
       open-maximized = true;
-    }
-    {
-      matches = [ { app-id = "dev.noctalia.Noctalia"; } ];
-      open-floating = true;
-      default-column-width = { fixed = 1080; };
-      default-window-height = { fixed = 920; };
     }
   ];
 

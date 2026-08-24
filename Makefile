@@ -1,7 +1,10 @@
 HOSTNAME := $(shell hostname)
 USER     := $(shell whoami)
 
-.PHONY: gc clean hm os os_rollback vm darwin darwin_rollback
+.PHONY: update gc clean hm os os_rollback vm darwin darwin_rollback
+
+update:
+	nix flake update
 
 gc:
 	sudo nix-collect-garbage --delete-older-than 1d
