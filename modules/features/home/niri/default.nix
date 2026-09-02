@@ -20,6 +20,7 @@ in
           package = pkgs.niri;
           settings = {
             prefer-no-csd = true;
+            screenshot-path = "~/screenshot_%Y-%m-%dT%H-%M-%S.png";
             hotkey-overlay.skip-at-startup = true;
             overview.backdrop-color = "#000000";
 

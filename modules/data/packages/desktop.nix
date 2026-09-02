@@ -8,7 +8,14 @@
         swaylock
         xwayland-satellite
         fuzzel
-        dmenu-wayland
+        (dmenu-wayland.overrideAttrs (_: {
+          src = pkgs.fetchgit {
+            url = "https://github.com/miksa234/dmenu-wl";
+            hash = "sha256-TpdYGNmWuK0u+WNUYmWv1T+q1ViX520A6XOekqbKtIU=";
+          };
+          patches = [];
+        }))
+        cliphist
         wl-clipboard
         grim
         mako
@@ -116,7 +123,7 @@
       [ groff ]
       ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
         texliveFull
-        libreoffice-fresh
+        libreoffice-stable
       ];
   };
 

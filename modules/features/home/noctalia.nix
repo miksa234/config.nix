@@ -26,7 +26,10 @@
               font_family = "Terminus";
               popup_shadows = false;
               launch_apps_as_systemd_services = true;
+              clipboard_enabled = false;
             };
+
+            osd.kinds.privacy = true;
 
             accessibility.ui_scale = 1.0;
             dock.enabled = false;
@@ -56,6 +59,7 @@
                   "battery"
                   "bluetooth"
                   "volume"
+                  "keyboard_layout"
                   "network"
                   "cpu"
                   "temp"
@@ -84,6 +88,23 @@
                 display = "icon_and_text";
                 max_length = 500;
                 title_scroll = "on_hover";
+              };
+
+              keyboard_layout = {
+                display = "short";
+                show_icon = true;
+                show_label = true;
+                hide_when_single_layout = false;
+                custom_labels = {
+                  "English (US)" = "US";
+                  "German" = "DE";
+                };
+              };
+
+              network = {
+                vpn_status = "replace";
+                show_label = true;
+                show_vpn_label = true;
               };
 
               cpu = {

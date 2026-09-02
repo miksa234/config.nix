@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   modules = config.dendritic.modules.darwin;
 in
@@ -18,8 +18,7 @@ in
         config.dendritic.modules.home.mika-profile
         {
           home = {
-            homeDirectory = "/Users/mika";
-            stateVersion = "25.11";
+            homeDirectory = lib.mkForce "/Users/mika";
           };
         }
       ];

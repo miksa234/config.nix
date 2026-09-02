@@ -8,14 +8,11 @@
       {
         command = [
           "dbus-update-activation-environment"
-          "--systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri"
-        ];
-      }
-      {
-        command = [
-          "systemctl"
-          " --user"
-          "import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri"
+          "--systemd"
+          "DISPLAY"
+          "WAYLAND_DISPLAY"
+          "XDG_CURRENT_DESKTOP=niri"
+          "NIRI_SOCKET"
         ];
       }
       {

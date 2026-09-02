@@ -17,6 +17,19 @@
           };
           Install.wantedBy = [ "default.target" ];
         };
+        services.cliphist = {
+          Unit = {
+            Description = "Wayland clipboard history";
+            PartOf = [ "graphical-session.target" ];
+            After = [ "graphical-session.target" ];
+          };
+          Service = {
+            ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store";
+            Restart = "on-failure";
+            RestartSec = 1;
+          };
+          Install.WantedBy = [ "graphical-session.target" ];
+        };
         timers.mbsync = {
           Unit = {
             Description = "Mailbox sync timer";
@@ -65,7 +78,6 @@
             ExecStart = "${pkgs.zsh}/bin/zsh -c 'niri-monitors'";
             Restart = "on-failure";
             RestartSec = "5";
-            Environment = "WAYLAND_DISPLAY=wayland-1";
           };
 
           Install.WantedBy = [ "graphical-session.target" ];

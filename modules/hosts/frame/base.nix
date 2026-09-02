@@ -62,7 +62,6 @@
       environment.variables = {
         __ETC_ZSHRC_SOURCED = "1";
         __ETC_ZSHENV_SOURCED = "1";
-        GDK_BACKEND = "wayland";
       };
 
       nixpkgs.config.allowUnfree = true;

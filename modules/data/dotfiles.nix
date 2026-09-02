@@ -4,7 +4,7 @@
     configDots = builtins.fetchGit {
       url = "https://github.com/miksa234/config.git";
       ref = "main";
-      rev = "dc7b6147c5a348411de05de7958c6233e735df10";
+      rev = "971814443ad82defdf7f3f37da5b8a4f8a586087";
     };
 
     configNvim = builtins.fetchGit {

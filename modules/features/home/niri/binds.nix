@@ -5,6 +5,33 @@
     let
       terminalCmd = lib.getExe pkgs.ghostty;
       nic = "noctalia msg";
+      clipboardMenu = lib.getExe (
+        pkgs.writeShellApplication {
+          name = "clipboard-menu";
+          runtimeInputs = [
+            pkgs.cliphist
+            pkgs.wl-clipboard
+          ];
+          text = ''
+            selection="$(cliphist list | dmenu-niri -p 'clipboard')" || exit 0
+            test -n "$selection" || exit 0
+            printf '%s' "$selection" | cliphist decode | wl-copy
+          '';
+        }
+      );
+      clearClipboardHistory = lib.getExe (
+        pkgs.writeShellApplication {
+          name = "clear-clipboard-history";
+          runtimeInputs = [
+            pkgs.cliphist
+          ];
+          text = ''
+            choice="$(printf 'yes\nno\n' | dmenu-niri -p 'clear clipboard history?')" || exit 0
+            test "$choice" = yes || exit 0
+            cliphist wipe
+          '';
+        }
+      );
     in
     {
       "Mod+Return".action.spawn = "${terminalCmd}";
@@ -18,6 +45,8 @@
       "Mod+Shift+W".action.spawn-sh = "${terminalCmd} -e nmtui";
       "Mod+M".action.spawn-sh = "TZ=Europe/Berlin ${terminalCmd} -e neomutt";
       "Mod+Shift+R".action.spawn-sh = "background";
+      "Mod+V".action.spawn = clipboardMenu;
+      "Mod+Shift+V".action.spawn = clearClipboardHistory;
       "Mod+Shift+Slash".action.show-hotkey-overlay = { };
       "Mod+Ctrl+Space".action.spawn-sh = "${nic} notification-clear-history";
       "Ctrl+Space".action.spawn-sh = "${nic} notification-clear-active";
@@ -29,6 +58,9 @@
       "Mod+G".action.fullscreen-window = { };
       "Mod+Shift+F".action.toggle-window-floating = { };
       "Mod+Shift+C".action.center-column = { };
+      "Mod+R".action.switch-preset-column-width = { };
+      "Mod+BracketLeft".action.consume-window-into-column = { };
+      "Mod+BracketRight".action.expel-window-from-column = { };
 
       "Mod+K".action.focus-column-right = { };
       "Mod+J".action.focus-column-left = { };
@@ -88,20 +120,12 @@
       "Mod+Ctrl+K".action.set-window-height = "-5%";
       "Mod+Ctrl+J".action.set-window-height = "+5%";
 
-      "Shift+Alt+C".action.spawn-sh =
-        "${lib.getExe pkgs.grim} -l 0 - | ${pkgs.wl-clipboard}/bin/wl-copy";
+      "Shift+Alt+C".action.screenshot-screen = { };
+      "Shift+Alt+S".action.screenshot = { };
+      "Shift+Alt+W".action.screenshot-window = { };
 
       "Shift+Alt+V".action.spawn-sh =
         "${pkgs.wl-clipboard}/bin/wl-paste | ${lib.getExe pkgs.swappy} -f -";
 
-      "Shift+Alt+S".action.spawn-sh = lib.getExe (
-        pkgs.writeShellApplication {
-          name = "screenshot";
-          text = ''
-            ${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp} -w 0)" - \
-            | ${pkgs.wl-clipboard}/bin/wl-copy
-          '';
-        }
-      );
     };
 }
