@@ -11,9 +11,9 @@
         (dmenu-wayland.overrideAttrs (_: {
           src = pkgs.fetchgit {
             url = "https://github.com/miksa234/dmenu-wl";
-            hash = "sha256-TpdYGNmWuK0u+WNUYmWv1T+q1ViX520A6XOekqbKtIU=";
+            hash = "sha256-9EzNdB1GAlO0SV+AVVwS4uNXWMhimgivOdzjhwmmEkg=";
           };
-          patches = [];
+          patches = [ ];
         }))
         cliphist
         wl-clipboard
@@ -24,6 +24,12 @@
         xdg-desktop-portal-gnome
         xdg-desktop-portal-gtk
       ];
+    };
+
+  dendritic.modules.home.packages-darwin =
+    { pkgs, lib, ... }:
+    lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+      home.packages = [ pkgs.stats ];
     };
 
   dendritic.modules.home.packages-network = { pkgs, lib, ... }: {

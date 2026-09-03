@@ -14,6 +14,7 @@ in
       modules.packages-shell
       modules.packages-cli
       modules.packages-wayland
+      modules.packages-darwin
       modules.packages-network
       modules.packages-fonts
       modules.packages-media

@@ -83,69 +83,85 @@
           ratio = [1, 2, 5]
 
           [opener]
-          zathura-open = [
-            { run = "zathura %s", orphan = true, for = "unix" },
-          ]
+          ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+            macos-open = [
+              { run = "/usr/bin/open %s", orphan = true, desc = "Open" },
+            ]
+          ''}
+          ${lib.optionalString (!pkgs.stdenv.hostPlatform.isDarwin) ''
+            zathura-open = [
+              { run = "zathura %s", orphan = true, for = "unix" },
+            ]
+            sxiv-open = [
+              { run = "sxiv %s", orphan = true, for = "unix" },
+            ]
+            mpv-play = [
+              { run = "mpv %s", orphan = true, for = "unix" },
+            ]
+            libreoffice-open = [
+              { run = "libreoffice %s", orphan = true, for = "unix" },
+            ]
+            gimp-open = [
+              { run = "gimp %s", orphan = true, for = "unix" },
+            ]
+            xdg-open = [
+              { run = "xdg-open %s1", desc = "Open", for = "unix" },
+            ]
+          ''}
           nvim-edit = [
             { run = "nvim %s", block = true, for = "unix" },
-          ]
-          sxiv-open = [
-            { run = "sxiv %s", orphan = true, for = "unix" },
-          ]
-          mpv-play = [
-            { run = "mpv %s", orphan = true, for = "unix" },
-          ]
-          libreoffice-open = [
-            { run = "libreoffice %s", orphan = true, for = "unix" },
-          ]
-          gimp-open = [
-            { run = "gimp %s", orphan = true, for = "unix" },
-          ]
-          xdg-open = [
-            { run = "xdg-open %s1", desc = "Open", for = "unix" },
           ]
 
           [open]
           prepend_rules = [
-            { url = "*.xlsx", use = "libreoffice-open" },
-            { url = "*.xls",  use = "libreoffice-open" },
-            { url = "*.docx", use = "libreoffice-open" },
-            { url = "*.pptx", use = "libreoffice-open" },
-            { url = "*.odt",  use = "libreoffice-open" },
-            { url = "*.ods",  use = "libreoffice-open" },
+            ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+              { mime = "text/*", use = "nvim-edit" },
+              { mime = "application/json", use = "nvim-edit" },
+              { mime = "application/javascript", use = "nvim-edit" },
+              { mime = "inode/x-empty", use = "nvim-edit" },
+              { url = "*", use = "macos-open" },
+            ''}
+            ${lib.optionalString (!pkgs.stdenv.hostPlatform.isDarwin) ''
+              { url = "*.xlsx", use = "libreoffice-open" },
+              { url = "*.xls",  use = "libreoffice-open" },
+              { url = "*.docx", use = "libreoffice-open" },
+              { url = "*.pptx", use = "libreoffice-open" },
+              { url = "*.odt",  use = "libreoffice-open" },
+              { url = "*.ods",  use = "libreoffice-open" },
 
-            { mime = "application/pdf",              use = "zathura-open" },
-            { mime = "image/vnd.djvu",               use = "zathura-open" },
-            { mime = "application/postscript",       use = "zathura-open" },
-            { mime = "application/epub+zip",         use = "zathura-open" },
+              { mime = "application/pdf",              use = "zathura-open" },
+              { mime = "image/vnd.djvu",               use = "zathura-open" },
+              { mime = "application/postscript",       use = "zathura-open" },
+              { mime = "application/epub+zip",         use = "zathura-open" },
 
-            { mime = "text/*",                       use = "nvim-edit" },
-            { mime = "application/json",             use = "nvim-edit" },
-            { mime = "application/javascript",       use = "nvim-edit" },
-            { mime = "inode/x-empty",                use = "nvim-edit" },
-            { mime = "application/x-subrip",         use = "nvim-edit" },
-            { mime = "application/pgp-encrypted",    use = "nvim-edit" },
+              { mime = "text/*",                       use = "nvim-edit" },
+              { mime = "application/json",             use = "nvim-edit" },
+              { mime = "application/javascript",       use = "nvim-edit" },
+              { mime = "inode/x-empty",                use = "nvim-edit" },
+              { mime = "application/x-subrip",         use = "nvim-edit" },
+              { mime = "application/pgp-encrypted",    use = "nvim-edit" },
 
-            { mime = "image/x-xcf",                  use = "gimp-open" },
-            { mime = "image/svg+xml",                use = "sxiv-open" },
-            { mime = "image/*",                      use = "sxiv-open" },
+              { mime = "image/x-xcf",                  use = "gimp-open" },
+              { mime = "image/svg+xml",                use = "sxiv-open" },
+              { mime = "image/*",                      use = "sxiv-open" },
 
-            { mime = "audio/*",                      use = "mpv-play" },
-            { mime = "video/*",                      use = "mpv-play" },
+              { mime = "audio/*",                      use = "mpv-play" },
+              { mime = "video/*",                      use = "mpv-play" },
 
-            { mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use = "libreoffice-open" },
-            { mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document", use = "libreoffice-open" },
-            { mime = "application/vnd.openxmlformats-officedocument.presentationml.presentation", use = "libreoffice-open" },
-            { mime = "application/vnd.ms-powerpoint", use = "libreoffice-open" },
-            { mime = "application/vnd.oasis.opendocument.text", use = "libreoffice-open" },
-            { mime = "application/vnd.oasis.opendocument.spreadsheet", use = "libreoffice-open" },
-            { mime = "application/vnd.oasis.opendocument.spreadsheet-template", use = "libreoffice-open" },
-            { mime = "application/vnd.oasis.opendocument.presentation", use = "libreoffice-open" },
-            { mime = "application/vnd.oasis.opendocument.presentation-template", use = "libreoffice-open" },
-            { mime = "application/vnd.oasis.opendocument.graphics", use = "libreoffice-open" },
-            { mime = "application/vnd.oasis.opendocument.graphics-template", use = "libreoffice-open" },
-            { mime = "application/vnd.oasis.opendocument.formula", use = "libreoffice-open" },
-            { mime = "application/vnd.oasis.opendocument.database", use = "libreoffice-open" },
+              { mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use = "libreoffice-open" },
+              { mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document", use = "libreoffice-open" },
+              { mime = "application/vnd.openxmlformats-officedocument.presentationml.presentation", use = "libreoffice-open" },
+              { mime = "application/vnd.ms-powerpoint", use = "libreoffice-open" },
+              { mime = "application/vnd.oasis.opendocument.text", use = "libreoffice-open" },
+              { mime = "application/vnd.oasis.opendocument.spreadsheet", use = "libreoffice-open" },
+              { mime = "application/vnd.oasis.opendocument.spreadsheet-template", use = "libreoffice-open" },
+              { mime = "application/vnd.oasis.opendocument.presentation", use = "libreoffice-open" },
+              { mime = "application/vnd.oasis.opendocument.presentation-template", use = "libreoffice-open" },
+              { mime = "application/vnd.oasis.opendocument.graphics", use = "libreoffice-open" },
+              { mime = "application/vnd.oasis.opendocument.graphics-template", use = "libreoffice-open" },
+              { mime = "application/vnd.oasis.opendocument.formula", use = "libreoffice-open" },
+              { mime = "application/vnd.oasis.opendocument.database", use = "libreoffice-open" },
+            ''}
           ]
         '';
       };

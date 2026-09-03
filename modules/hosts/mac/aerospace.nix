@@ -62,11 +62,13 @@
             alt-shift-7 = "move-node-to-workspace 7";
             alt-shift-8 = "move-node-to-workspace 8";
             alt-shift-9 = "move-node-to-workspace 9";
-            alt-enter = "exec-and-forget open -n /Users/mika/Applications/Ghostty.app";
-            alt-c = "exec-and-forget open -n /Users/mika/Applications/Firefox.app";
-            alt-shift-w = "exec-and-forget open -n /Users/mika/Applications/Spotify.app";
+            alt-enter = "exec-and-forget open -na Ghostty";
+            alt-c = "exec-and-forget open -na Firefox";
+            alt-w = "exec-and-forget open -na Spotify";
+            alt-shift-s = "exec-and-forget sh -c 'mkdir -p \"$HOME/Pictures\" && /usr/sbin/screencapture -i \"$HOME/Pictures/screenshot_$(/bin/date +%Y-%m-%d_%H-%M-%S).png\"'";
+            alt-shift-v = "exec-and-forget sh -c 'mkdir -p \"$HOME/Pictures\" && /usr/sbin/screencapture \"$HOME/Pictures/screenshot_$(/bin/date +%Y-%m-%d_%H-%M-%S).png\"'";
             alt-shift-q = "close --quit-if-last-window";
-            alt-m = "exec-and-forget /Users/mika/Applications/Alacritty.app/Contents/MacOS/alacritty neomutt";
+            alt-m = "exec-and-forget open -na Ghostty --args -e neomutt";
             alt-f = "fullscreen";
             alt-tab = "workspace-back-and-forth";
             alt-shift-tab = "move-workspace-to-monitor --wrap-around next";

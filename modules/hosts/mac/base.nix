@@ -20,6 +20,17 @@
         };
       };
 
+      security.pam.services.sudo_local = {
+        touchIdAuth = true;
+        reattach = true;
+      };
+
+      power.sleep = {
+        computer = 30;
+        display = 10;
+        harddisk = 10;
+      };
+
       nixpkgs.config.allowUnfree = true;
       nixpkgs.overlays = [ inputs.yazi.overlays.default ];
 
