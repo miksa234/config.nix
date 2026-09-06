@@ -27,10 +27,12 @@ in
       modules.firefox
       modules.ghostty
       modules.yazi
-      modules.theme
-      modules.xdg
-      modules.systemd-services
-      modules.niri
+       modules.theme
+       modules.xdg
+       modules.systemd-services
+       modules.dmenu-mac
+       modules.launchd-services
+       modules.niri
       modules.noctalia
     ];
   };

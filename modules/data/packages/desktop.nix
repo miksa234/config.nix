@@ -29,7 +29,9 @@
   dendritic.modules.home.packages-darwin =
     { pkgs, lib, ... }:
     lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-      home.packages = [ pkgs.stats ];
+      home.packages = with pkgs; [
+        stats
+      ];
     };
 
   dendritic.modules.home.packages-network = { pkgs, lib, ... }: {

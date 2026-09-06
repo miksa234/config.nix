@@ -16,6 +16,13 @@
           automatically-unhide-macos-hidden-apps = false;
           on-mode-changed = [ ];
 
+          exec = {
+            inherit-env-vars = true;
+            env-vars.PATH = ''
+              ''${HOME}/.local/bin/scripts:/etc/profiles/per-user/mika/bin:/run/current-system/sw/bin:''${PATH}
+            '';
+          };
+
           key-mapping.preset = "qwerty";
 
           gaps = {
@@ -64,7 +71,11 @@
             alt-shift-9 = "move-node-to-workspace 9";
             alt-enter = "exec-and-forget open -na Ghostty";
             alt-c = "exec-and-forget open -na Firefox";
+            alt-d = "exec-and-forget dmenu-mac_run";
             alt-w = "exec-and-forget open -na Spotify";
+            alt-v = "exec-and-forget dmenu-mac-clipboard";
+            alt-shift-c = "exec-and-forget dmenu-mac-clipboard-clear";
+            alt-p = "exec-and-forget passmenu-otp";
             alt-shift-s = "exec-and-forget sh -c 'mkdir -p \"$HOME/Pictures\" && /usr/sbin/screencapture -i \"$HOME/Pictures/screenshot_$(/bin/date +%Y-%m-%d_%H-%M-%S).png\"'";
             alt-shift-v = "exec-and-forget sh -c 'mkdir -p \"$HOME/Pictures\" && /usr/sbin/screencapture \"$HOME/Pictures/screenshot_$(/bin/date +%Y-%m-%d_%H-%M-%S).png\"'";
             alt-shift-q = "close --quit-if-last-window";

@@ -38,6 +38,10 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
     yazi.url = "github:sxyazi/yazi";
+    dmenu-mac = {
+      url = "github:miksa234/dmenu-mac";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

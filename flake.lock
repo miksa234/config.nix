@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "dmenu-mac": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788655647,
+        "narHash": "sha256-W2A1qLXTyulIJT4wF/5hFbYEFb5ToaeJEWPR7JbAGvc=",
+        "owner": "miksa234",
+        "repo": "dmenu-mac",
+        "rev": "72972760f0022e35a8a48dcfec89feb8318b5309",
+        "type": "github"
+      },
+      "original": {
+        "owner": "miksa234",
+        "repo": "dmenu-mac",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -320,6 +340,7 @@
     },
     "root": {
       "inputs": {
+        "dmenu-mac": "dmenu-mac",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
