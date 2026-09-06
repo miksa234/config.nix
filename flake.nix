@@ -42,6 +42,10 @@
       url = "github:miksa234/dmenu-mac";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dmenu-wl = {
+      url = "github:miksa234/dmenu-wl";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

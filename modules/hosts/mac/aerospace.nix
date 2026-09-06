@@ -1,7 +1,7 @@
 { ... }:
 {
   dendritic.modules.darwin.mac =
-    { ... }:
+    { config, ... }:
     {
       services.aerospace = {
         enable = true;
@@ -18,9 +18,11 @@
 
           exec = {
             inherit-env-vars = true;
-            env-vars.PATH = ''
-              ''${HOME}/.local/bin/scripts:/etc/profiles/per-user/mika/bin:/run/current-system/sw/bin:''${PATH}
-            '';
+            env-vars = {
+              PATH = "\${HOME}/.local/bin/scripts:/etc/profiles/per-user/\${USER}/bin:/run/current-system/sw/bin:\${PATH}";
+              PASSWORD_STORE_DIR = "\${HOME}/.local/share/password-store";
+              GNUPGHOME = "\${HOME}/.local/share/gnupg";
+            };
           };
 
           key-mapping.preset = "qwerty";
@@ -74,10 +76,10 @@
             alt-d = "exec-and-forget dmenu-mac_run";
             alt-w = "exec-and-forget open -na Spotify";
             alt-v = "exec-and-forget dmenu-mac-clipboard";
-            alt-shift-c = "exec-and-forget dmenu-mac-clipboard-clear";
+            alt-shift-v = "exec-and-forget dmenu-mac-clipboard-clear";
             alt-p = "exec-and-forget passmenu-otp";
-            alt-shift-s = "exec-and-forget sh -c 'mkdir -p \"$HOME/Pictures\" && /usr/sbin/screencapture -i \"$HOME/Pictures/screenshot_$(/bin/date +%Y-%m-%d_%H-%M-%S).png\"'";
-            alt-shift-v = "exec-and-forget sh -c 'mkdir -p \"$HOME/Pictures\" && /usr/sbin/screencapture \"$HOME/Pictures/screenshot_$(/bin/date +%Y-%m-%d_%H-%M-%S).png\"'";
+            alt-shift-s = "exec-and-forget sh -c 'screencapture -i \"$HOME/Pictures/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png\"'";
+            alt-s = "exec-and-forget sh -c  'screencapture \"$HOME/Pictures/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png\"'";
             alt-shift-q = "close --quit-if-last-window";
             alt-m = "exec-and-forget open -na Ghostty --args -e neomutt";
             alt-f = "fullscreen";

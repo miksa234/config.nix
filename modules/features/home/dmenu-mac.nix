@@ -3,7 +3,27 @@
   dendritic.modules.home.dmenu-mac =
     { inputs, pkgs, lib, ... }:
     lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (let
-      dmenu-mac = inputs.dmenu-mac.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      dmenu-mac = inputs.dmenu-mac.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          cat > config.def.h <<'EOF'
+          #include <stdint.h>
+
+          static const char *color_bg = "#000000f2";
+          static const char *color_fg = "#ffffffff";
+          static const char *color_selected_bg = "#ffc87fff";
+          static const char *color_selected_fg = "#000000ff";
+          static const char *color_border = "#ffc87fff";
+
+          static CGFloat panel_height = 20;
+          static CGFloat min_width = 600;
+          static CGFloat border_width = 3;
+          static enum dmenu_position position = DMENU_POSITION_CENTER;
+          static const char *font = "Terminus (TTF) 15";
+          static NSInteger lines = 15;
+          static NSTimeInterval timeout = 3;
+          EOF
+        '';
+      });
       history = ''$HOME/.local/state/dmenu-mac/clipboard-history'';
     in {
       home.packages = [
@@ -47,7 +67,7 @@
           text = ''
             history=${history}
             [ -s "$history" ] || exit 0
-            selection="$(dmenu-mac -i -l 15 -p clipboard < "$history")" || exit 0
+            selection="$(dmenu-mac -i -p clipboard < "$history")" || exit 0
             [ -n "$selection" ] || exit 0
             printf '%s' "$selection" | /usr/bin/pbcopy
           '';
@@ -58,7 +78,8 @@
           text = ''
             history=${history}
             [ -f "$history" ] || exit 0
-            choice="$(printf 'yes\nno\n' | dmenu-mac -p 'clear clipboard history?')" || exit 0
+            choice="$(printf 'yes\nno\n' | dmenu-mac -p 'clear clipboard
+              history?')" || exit 0
             [ "$choice" = yes ] || exit 0
             : > "$history"
           '';

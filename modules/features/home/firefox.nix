@@ -8,6 +8,7 @@
     {
       programs.firefox = {
         enable = true;
+        package = pkgs.firefox-bin;
         profiles = {
           frame = {
             id = 0;

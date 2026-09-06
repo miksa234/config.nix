@@ -27,7 +27,7 @@ vm:
 	sudo nixos-build build-vm --flake .#$(HOST) --show-trace
 
 darwin:
-	sudo darwin-rebuild switch --flake ./#$(HOSTNAME) --show-trace
+	sudo darwin-rebuild switch --flake ./#$(HOSTNAME) --show-trace --option accept-flake-config true
 
 darwin_rollback:
 	sudo darwin-rebuild switch --flake --rollback

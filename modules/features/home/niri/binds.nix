@@ -120,7 +120,7 @@
       "Mod+Ctrl+K".action.set-window-height = "-5%";
       "Mod+Ctrl+J".action.set-window-height = "+5%";
 
-      "Shift+Alt+C".action.screenshot-screen = { };
+      "Alt+S".action.screenshot-screen = { };
       "Shift+Alt+S".action.screenshot = { };
       "Shift+Alt+W".action.screenshot-window = { };
 

@@ -4,13 +4,13 @@
     configDots = builtins.fetchGit {
       url = "https://github.com/miksa234/config.git";
       ref = "main";
-      rev = "94ddce846c7f07fae282d5daee043018543271f6";
+      rev = "23ae292558fbecd6a069cf70f4af0b9a46101c09";
     };
 
     configNvim = builtins.fetchGit {
       url = "https://github.com/miksa234/config.nvim.git";
       ref = "main";
-      rev = "9e8b73daa6a7f49ce59d0356e77712fa10eec912";
+      rev = "69e2f90a16189641af8a27d46cedc8fed531a8d3";
     };
   };
 }
