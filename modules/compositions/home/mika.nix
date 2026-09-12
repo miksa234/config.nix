@@ -23,6 +23,7 @@ in
        modules.packages-office
        modules.packages-email
        modules.private-dotfiles
+       modules.opencode
        modules.packages-development
        modules.nix-settings
        modules.firefox

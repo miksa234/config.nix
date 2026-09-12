@@ -43,7 +43,6 @@
       hardware.bluetooth = {
         enable = true;
         powerOnBoot = false;
-        package = inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.bluez;
       };
       hardware.sensor.iio.enable = false;
     };

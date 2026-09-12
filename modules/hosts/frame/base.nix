@@ -44,8 +44,22 @@
         };
       };
 
-      security.sudo.wheelNeedsPassword = false;
-      security.rtkit.enable = true;
+      security = {
+        sudo.wheelNeedsPassword = false;
+        rtkit.enable = true;
+        polkit.enable = true;
+        polkit.extraConfig = ''
+          polkit.addRule(function (action, subject) {
+            if (action.id == "net.reactivated.fprint.device.enroll" ||
+                action.id == "net.reactivated.fprint.device.verify") {
+              return polkit.Result.YES;
+            }
+          });
+        '';
+        pam.services.polkit-1.fprintAuth = true;
+        pam.services.sudo.fprintAuth = true;
+        pam.services.login.fprintAuth = false;
+      };
 
       powerManagement.powertop.enable = true;
       programs = {
