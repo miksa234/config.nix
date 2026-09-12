@@ -5,18 +5,6 @@
     lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
       systemd.user = {
         startServices = "sd-switch";
-        services.mbsync = {
-          Unit = {
-            Description = "Mailbox sync service";
-            RefuseManualStart = "no";
-            RefuseManualStop = "yes";
-          };
-          Service = {
-            Type = "oneshot";
-            ExecStart = "${pkgs.zsh}/bin/zsh -c 'mbsync -c .config/isync/mbsyncrc -a -q && ${pkgs.notmuch}/bin/notmuch new'";
-          };
-          Install.wantedBy = [ "default.target" ];
-        };
         services.cliphist = {
           Unit = {
             Description = "Wayland clipboard history";
@@ -29,21 +17,6 @@
             RestartSec = 1;
           };
           Install.WantedBy = [ "graphical-session.target" ];
-        };
-        timers.mbsync = {
-          Unit = {
-            Description = "Mailbox sync timer";
-            RefuseManualStop = "no";
-            RefuseManualStart = "no";
-            ConditionACPower = true;
-          };
-          Timer = {
-            Persistent = false;
-            OnBootSec = "0.3m";
-            OnUnitActiveSec = "0.5m";
-            Unit = "mbsync.service";
-          };
-          Install.WantedBy = [ "timers.target" ];
         };
         services.niri-wakeup-monitors = {
           Unit = {
