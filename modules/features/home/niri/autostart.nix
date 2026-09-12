@@ -3,7 +3,6 @@
   dendritic.data.niriAutostart =
     { lib, pkgs }:
     [
-      { command = [ "check-mail" ]; }
       {
         command = [
           "dbus-update-activation-environment"
@@ -18,6 +17,13 @@
         command = [
           "nextcloud"
           "--background"
+        ];
+      }
+      {
+        command = [
+          "noctalia"
+          "msg"
+          "wallpaper-random"
         ];
       }
       {
