@@ -39,11 +39,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1788861317,
-        "narHash": "sha256-koGKDG5RG9wv84Kel5gyTrIFfS5LwoRDZncjLNJYDDQ=",
+        "lastModified": 1789506215,
+        "narHash": "sha256-mmh06f24326m7dBpI0EUpKJ/vgPYdStzpLvyVo+a3Mk=",
         "owner": "miksa234",
         "repo": "config",
-        "rev": "539f52cb02d96a83f19198fb56bfdcde0fc9b0a4",
+        "rev": "e1bfc76f681d9fc5bb2fd21484900b7c9f483ec6",
         "type": "github"
       },
       "original": {

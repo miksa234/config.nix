@@ -15,7 +15,7 @@
           systemd.enable = true;
           package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
-          customPalettes.pallete = {
+          customPalettes.palette = {
             dark = {
               mPrimary = "#F5F5F7";
               mOnPrimary = "#000000";
@@ -38,7 +38,7 @@
             light = {
               mPrimary = "#1D1D1F";
               mOnPrimary = "#FFFFFF";
-              mSecondary = "#007AFF";
+              mSecondary = "#0A84FF";
               mOnSecondary = "#FFFFFF";
               mTertiary = "#AF6E00";
               mOnTertiary = "#FFFFFF";
@@ -60,7 +60,7 @@
             theme = {
               mode = "dark";
               source = "custom";
-              custom_palette = "pallete";
+              custom_palette = "palette";
               pure_black_dark = true;
             };
 
@@ -100,14 +100,13 @@
                 position = "top";
                 background_opacity = 0;
                 padding = 10;
-                widget_spacing = 20;
+                widget_spacing = 12;
                 radius = 0;
                 capsule_radius = 0;
                 capsule = false;
                 shadow = false;
                 font_family = "Terminus";
-                font_weight = 700;
-                scale = 1.2;
+                scale = 1;
                 margin_ends = 0;
 
                 start = [ "workspaces" ];
@@ -162,6 +161,7 @@
                 focused_color = "primary";
                 occupied_color = "secondary";
                 empty_color = "on_primary";
+                scale= 1.2;
               };
 
               active_window = {
