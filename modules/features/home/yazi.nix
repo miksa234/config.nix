@@ -15,7 +15,7 @@
 
         initLua = ''
           require("full-border"):setup {
-            type = ui.Border.PLAIN,
+            set = "plain",
           }
 
           Status:children_add(function(self)
@@ -34,9 +34,9 @@
             end
 
             return ui.Line {
-              ui.Span(ya.user_name(h.cha.uid) or tostring(h.cha.uid)):fg("magenta"),
+              ui.Span(ya.user_name(h.stat.uid) or tostring(h.stat.uid)):fg("magenta"),
               ":",
-              ui.Span(ya.group_name(h.cha.gid) or tostring(h.cha.gid)):fg("magenta"),
+              ui.Span(ya.group_name(h.stat.gid) or tostring(h.stat.gid)):fg("magenta"),
               " ",
             }
           end, 500, Status.RIGHT)

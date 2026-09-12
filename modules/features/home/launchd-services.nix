@@ -1,8 +1,8 @@
 { ... }:
 {
   dendritic.modules.home.launchd-services =
-    { config, pkgs, lib, ... }:
-    lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    { config, ... }:
+    {
       launchd.agents.dmenu-mac-clipboard = {
         enable = true;
         config = {

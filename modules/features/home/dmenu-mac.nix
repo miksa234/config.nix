@@ -1,31 +1,34 @@
 { ... }:
 {
   dendritic.modules.home.dmenu-mac =
-    { inputs, pkgs, lib, ... }:
-    lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (let
-      dmenu-mac = inputs.dmenu-mac.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
-        postPatch = (old.postPatch or "") + ''
-          cat > config.def.h <<'EOF'
-          #include <stdint.h>
+    { inputs, pkgs, ... }:
+    let
+      dmenu-mac =
+        inputs.dmenu-mac.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
+          (old: {
+            postPatch = (old.postPatch or "") + ''
+              cat > config.def.h <<'EOF'
+              #include <stdint.h>
 
-          static const char *color_bg = "#000000F2";
-          static const char *color_fg = "#FFFFFFFF";
-          static const char *color_selected_bg = "#0A84FFFF";
-          static const char *color_selected_fg = "#000000FF";
-          static const char *color_border = "#0A84FFFF";
+              static const char *color_bg = "#000000F2";
+              static const char *color_fg = "#FFFFFFFF";
+              static const char *color_selected_bg = "#0A84FFFF";
+              static const char *color_selected_fg = "#000000FF";
+              static const char *color_border = "#0A84FFFF";
 
-          static CGFloat panel_height = 20;
-          static CGFloat min_width = 600;
-          static CGFloat border_width = 3;
-          static enum dmenu_position position = DMENU_POSITION_CENTER;
-          static const char *font = "Terminus (TTF) 15";
-          static NSInteger lines = 15;
-          static NSTimeInterval timeout = 3;
-          EOF
-        '';
-      });
-      history = ''$HOME/.local/state/dmenu-mac/clipboard-history'';
-    in {
+              static CGFloat panel_height = 20;
+              static CGFloat min_width = 600;
+              static CGFloat border_width = 3;
+              static enum dmenu_position position = DMENU_POSITION_CENTER;
+              static const char *font = "Terminus (TTF) 15";
+              static NSInteger lines = 15;
+              static NSTimeInterval timeout = 3;
+              EOF
+            '';
+          });
+      history = "$HOME/.local/state/dmenu-mac/clipboard-history";
+    in
+    {
       home.packages = [
         dmenu-mac
         (pkgs.writeShellApplication {
@@ -85,5 +88,5 @@
           '';
         })
       ];
-    });
+    };
 }

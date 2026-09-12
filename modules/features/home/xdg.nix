@@ -3,10 +3,9 @@
   dendritic.modules.home.xdg =
     {
       pkgs,
-      lib,
       ...
     }:
-    lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
+    {
       home.sessionVariables = {
         EDITOR = "nvim";
         BROWSER = "firefox";

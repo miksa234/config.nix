@@ -39,12 +39,12 @@ let
                 };
               in
               {
-                ".zshenv" = mkDotfileLink ".zshenv";
-                ".config/zsh/.zshrc" = mkDotfileLink ".config/zsh/.zshrc";
-                ".config/shell/bindings" = mkDotfileLink ".config/shell/bindings";
-                ".config/shell/profile" = mkDotfileLink ".config/shell/profile";
-                ".config/shell/aliases" = mkDotfileLink ".config/shell/aliases";
-                ".config/git" = mkDotfileLink ".config/git";
+                ".zshenv" = mkDotfileLink "zshenv";
+                ".config/zsh/.zshrc" = mkDotfileLink "config/zsh/.zshrc";
+                ".config/shell/bindings" = mkDotfileLink "config/shell/bindings";
+                ".config/shell/profile" = mkDotfileLink "config/shell/profile";
+                ".config/shell/aliases" = mkDotfileLink "config/shell/aliases";
+                ".config/git" = mkDotfileLink "config/git";
                 ".local/bin/.keep".text = "";
                 ".config/nvim/init.lua" = mkNvimfileLink "init.lua";
                 ".config/nvim/after" = mkNvimfileLink "after";

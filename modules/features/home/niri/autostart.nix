@@ -1,9 +1,7 @@
 { ... }:
 {
-  dendritic.data.niriAutostart =
-    { lib, pkgs }:
-    [
-      { command = [ "check-mail" ]; }
+  dendritic.modules.home.niri = { lib, pkgs, ... }: {
+    programs.niri.settings.spawn-at-startup = [
       {
         command = [
           "dbus-update-activation-environment"
@@ -22,6 +20,13 @@
       }
       {
         command = [
+          "noctalia"
+          "msg"
+          "wallpaper-random"
+        ];
+      }
+      {
+        command = [
           "${lib.getExe pkgs.swayidle}"
           "-w"
           "timeout"
@@ -33,4 +38,5 @@
         ];
       }
     ];
+  };
 }

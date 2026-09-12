@@ -20,7 +20,7 @@ in
       ];
       networking.hostName = "mac";
       home-manager.users.mika.imports = [
-        config.dendritic.modules.home.mika-profile
+        config.dendritic.modules.home.mika
         {
           home = {
             homeDirectory = lib.mkForce "/Users/mika";

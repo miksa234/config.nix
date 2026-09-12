@@ -13,7 +13,7 @@
             case "$2" in
               up)
                 if [[ $INTERFACE == "wlan0" ]]; then
-                    timedatectl set-timezone "$(curl --fail https://ipapi.co/timezone)"
+                    timedatectl set-timezone "$(curl --fail https://ipinfo.io/timezone)"
                 fi
                 ;;
               down)

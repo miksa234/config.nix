@@ -12,11 +12,12 @@ in
         modules.networkmanager
         modules.home-manager
         modules.mika
+        modules.gaming
         modules.root
       ];
       networking.hostName = "frame";
       home-manager.users.mika.imports = [
-        config.dendritic.modules.home.mika-profile
+        config.dendritic.modules.home.mika
       ];
     };
   };
