@@ -10,6 +10,23 @@
       luajitPackages.jsregexp
       nil
       marksman
+      bash-language-server
+      clang-tools
+      docker-compose-language-service
+      docker-language-server
+      dockerfile-language-server
+      lua-language-server
+      tailwindcss-language-server
+      texlab
+      typescript-language-server
+      vscode-langservers-extracted
+      vscode-solidity-server
+      yaml-language-server
+      zls
+      luajitPackages.luacheck
+      nixfmt
+      prettier
+      stylua
       nodejs
       pnpm
       cmake
@@ -22,8 +39,12 @@
       ruby
       php
       julia-bin
-      python3
-      python313Packages.pip
+      (python3.withPackages (ps: with ps; [
+        pip
+        black
+        debugpy
+        python-lsp-server
+      ] ++ python-lsp-server.optional-dependencies.all))
       rustup
       azure-cli
     ];

@@ -22,8 +22,6 @@ in
             prefer-no-csd = true;
             screenshot-path = "~/screenshot_%Y-%m-%dT%H-%M-%S.png";
             hotkey-overlay.skip-at-startup = true;
-            overview.backdrop-color = "#000000";
-
             window-rules = data.niriRules;
             layer-rules = data.niriLayerRules;
             workspaces = data.niriWorkspaces;
