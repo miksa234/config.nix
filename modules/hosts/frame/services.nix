@@ -1,15 +1,15 @@
 { ... }:
 {
   dendritic.modules.nixos.frame =
-    { ... }:
+    { pkgs, ... }:
     {
       services = {
         avahi = {
-          enable = true;
+          enable = false;
           nssmdns4 = true;
-          publish = {
-            enable = false;
-            userServices = true;
+          settings.publish = {
+            "disable-publishing" = true;
+            "disable-user-service-publishing" = true;
           };
         };
         openssh = {

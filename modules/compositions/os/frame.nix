@@ -12,6 +12,7 @@ in
         modules.networkmanager
         modules.home-manager
         modules.mika
+        modules.gaming
         modules.root
       ];
       networking.hostName = "frame";

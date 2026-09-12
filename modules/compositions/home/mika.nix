@@ -9,32 +9,33 @@ in
       stateVersion = "26.05";
     };
     imports = [
-       modules.mika
-       modules.packages-system
-       modules.packages-shell
-       modules.packages-cli
-       modules.packages-wayland
-       modules.packages-darwin
-       modules.packages-network
-       modules.packages-fonts
-       modules.packages-media
-       modules.packages-communication
-       modules.packages-files
-       modules.packages-office
-       modules.packages-email
-       modules.private-dotfiles
-       modules.packages-development
-       modules.nix-settings
-       modules.firefox
-       modules.ghostty
-       modules.yazi
-       modules.theme
-       modules.xdg
-       modules.systemd-services
-       modules.dmenu-mac
-       modules.niri
-       modules.noctalia
-       modules.launchd-services
+      modules.mika
+      modules.packages-system
+      modules.packages-shell
+      modules.packages-cli
+      modules.packages-wayland
+      modules.packages-darwin
+      modules.packages-network
+      modules.packages-fonts
+      modules.packages-media
+      modules.packages-communication
+      modules.packages-files
+      modules.packages-office
+      modules.packages-email
+      modules.packages-development
+      modules.private-dotfiles
+      modules.nix-settings
+      modules.systemd-services
+      modules.launchd-services
+      modules.xdg
+      modules.niri-desktop
+      modules.noctalia
+      modules.dmenu-mac
+      modules.opencode
+      modules.firefox
+      modules.ghostty
+      modules.yazi
+      modules.theme
     ];
   };
 

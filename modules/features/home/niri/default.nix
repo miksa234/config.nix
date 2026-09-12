@@ -12,6 +12,7 @@ in
     {
       imports = [
         inputs.niri.homeModules.niri
+        config.dendritic.modules.home.niri-monitor-services
       ];
 
       config = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
@@ -22,20 +23,27 @@ in
             prefer-no-csd = true;
             screenshot-path = "~/screenshot_%Y-%m-%dT%H-%M-%S.png";
             hotkey-overlay.skip-at-startup = true;
-            overview.backdrop-color = "#000000";
-
             window-rules = data.niriRules;
             layer-rules = data.niriLayerRules;
             workspaces = data.niriWorkspaces;
-            binds = data.niriBinds { inherit lib pkgs; };
+            binds = data.niriNavigationBinds;
             layout = data.niriLayout;
             cursor = data.niriCursor;
             xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
-            spawn-at-startup = data.niriAutostart { inherit lib pkgs; };
             outputs = data.niriOutputs;
             input = data.niriInput;
           };
         };
       };
     };
+
+  dendritic.modules.home.niri-desktop = { lib, pkgs, ... }: {
+    imports = [ config.dendritic.modules.home.niri ];
+    config = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
+      programs.niri.settings = {
+        binds = data.niriAppBinds { inherit lib pkgs; };
+        spawn-at-startup = data.niriAutostart { inherit lib pkgs; };
+      };
+    };
+  };
 }

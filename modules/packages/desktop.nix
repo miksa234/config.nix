@@ -99,6 +99,7 @@
         transmission_4
       ]
       ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
+        steam
         vlc
         sxiv
         gimp
