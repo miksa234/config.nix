@@ -1,46 +1,81 @@
-{ ... }:
+{ config, ... }:
 {
-  dendritic.modules.home.packages-wayland =
+  dendritic.modules.home.dmenu-niri =
     {
       inputs,
       pkgs,
-      lib,
       ...
     }:
-    lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
+    let
+      dmenu-wl = inputs.dmenu-wl.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          cat > config.def.h <<'EOF'
+          #include <stdint.h>
+
+          static uint32_t color_bg = 0x000000f2;
+          static uint32_t color_fg = 0xffffffff;
+          static uint32_t color_input_bg = 0x000000f2;
+          static uint32_t color_input_fg = 0xffffffff;
+          static uint32_t color_prompt_bg = 0x000000f2;
+          static uint32_t color_prompt_fg = 0xffffffff;
+          static uint32_t color_selected_bg = 0x0a84ffff;
+          static uint32_t color_selected_fg = 0x000000ff;
+          static uint32_t color_border = 0x0a84ffff;
+
+          static int32_t panel_height = 20;
+          static int32_t min_width = 600;
+          static int32_t border_width = 3;
+
+          static enum dmenu_position position = DMENU_POSITION_CENTER;
+
+          static char *font = "Terminus 14";
+
+          static int lines = 15;
+
+          static int timeout = 3;
+          EOF
+        '';
+      });
+      dmenu-niri = pkgs.writeShellApplication {
+        name = "dmenu-niri";
+        runtimeInputs = [
+          dmenu-wl
+          pkgs.niri
+          pkgs.gnugrep
+          pkgs.gnused
+        ];
+        text = ''
+          monitor=$(niri msg focused-output | grep Output | sed 's/.*(\(.*\)).*/\1/')
+          exec dmenu-wl -m "$monitor" -i "$@"
+        '';
+      };
+      dmenu-niri-run = pkgs.writeShellApplication {
+        name = "dmenu-niri_run";
+        runtimeInputs = [
+          dmenu-wl
+          dmenu-niri
+        ];
+        text = ''
+          dmenu-wl_path | dmenu-niri "$@" | "''${SHELL:-/bin/sh}" &
+        '';
+      };
+    in
+    {
+      home.packages = [
+        dmenu-wl
+        dmenu-niri
+        dmenu-niri-run
+      ];
+    };
+
+  dendritic.modules.home.packages-wayland =
+    { pkgs, ... }:
+    {
+      imports = [ config.dendritic.modules.home.dmenu-niri ];
       home.packages = with pkgs; [
         swaybg
         xwayland-satellite
         fuzzel
-        (inputs.dmenu-wl.packages.${stdenv.hostPlatform.system}.default.overrideAttrs (old: {
-          postPatch = (old.postPatch or "") + ''
-            cat > config.def.h <<'EOF'
-            #include <stdint.h>
-
-            static uint32_t color_bg = 0x000000f2;
-            static uint32_t color_fg = 0xffffffff;
-            static uint32_t color_input_bg = 0x000000f2;
-            static uint32_t color_input_fg = 0xffffffff;
-            static uint32_t color_prompt_bg = 0x000000f2;
-            static uint32_t color_prompt_fg = 0xffffffff;
-            static uint32_t color_selected_bg = 0x0a84ffff;
-            static uint32_t color_selected_fg = 0x000000ff;
-            static uint32_t color_border = 0x0a84ffff;
-
-            static int32_t panel_height = 20;
-            static int32_t min_width = 600;
-            static int32_t border_width = 3;
-
-            static enum dmenu_position position = DMENU_POSITION_CENTER;
-
-            static char *font = "Terminus 14";
-
-            static int lines = 15;
-
-            static int timeout = 3;
-            EOF
-          '';
-        }))
         cliphist
         wl-clipboard
         grim
@@ -53,8 +88,8 @@
     };
 
   dendritic.modules.home.packages-darwin =
-    { pkgs, lib, ... }:
-    lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    { pkgs, ... }:
+    {
       home.packages = with pkgs; [
         stats
       ];
@@ -99,6 +134,7 @@
         transmission_4
       ]
       ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
+        steam
         vlc
         sxiv
         gimp

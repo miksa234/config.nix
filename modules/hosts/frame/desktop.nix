@@ -12,6 +12,7 @@
           wireplumber.enable = true;
         };
         getty.autologinUser = "mika";
+        getty.autologinOnce = true;
         logind.settings.Login = {
           SleepOperation = "suspend-then-hibernate";
           HandlePowerKey = "suspend-then-hibernate";
