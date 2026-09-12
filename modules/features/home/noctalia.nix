@@ -15,7 +15,7 @@
           systemd.enable = true;
           package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
-          customPalettes.pallete = {
+          customPalettes.palette = {
             dark = {
               mPrimary = "#F5F5F7";
               mOnPrimary = "#000000";
@@ -38,7 +38,7 @@
             light = {
               mPrimary = "#1D1D1F";
               mOnPrimary = "#FFFFFF";
-              mSecondary = "#007AFF";
+              mSecondary = "#0A84FF";
               mOnSecondary = "#FFFFFF";
               mTertiary = "#AF6E00";
               mOnTertiary = "#FFFFFF";
@@ -57,10 +57,12 @@
           };
 
           settings = {
+            audio.enable_sounds = false;
+
             theme = {
               mode = "dark";
               source = "custom";
-              custom_palette = "pallete";
+              custom_palette = "palette";
               pure_black_dark = true;
             };
 
@@ -87,11 +89,6 @@
               directory = "${config.xdg.dataHome}/wallpaper";
               transition = [ ];
               transition_duration = 0;
-              automation = {
-                enabled = true;
-                order = "random";
-                recursive = true;
-              };
             };
 
             bar = {
@@ -100,14 +97,13 @@
                 position = "top";
                 background_opacity = 0;
                 padding = 10;
-                widget_spacing = 20;
+                widget_spacing = 12;
                 radius = 0;
                 capsule_radius = 0;
                 capsule = false;
                 shadow = false;
                 font_family = "Terminus";
-                font_weight = 700;
-                scale = 1.2;
+                scale = 1;
                 margin_ends = 0;
 
                 start = [ "workspaces" ];
@@ -130,28 +126,46 @@
             lockscreen = {
               enabled = true;
               fingerprint = true;
+              transition = [ ];
             };
 
-            lockscreen_widgets = {
-              enabled = true;
-              widget_order = [ "lockscreen-login-box@eDP-1" ];
-              widget."lockscreen-login-box@eDP-1" = {
-                type = "login_box";
-                output = "eDP-1";
-                box_width = 400.0;
-                box_height = 70.0;
-                cx = 752.0;
-                cy = 501.0;
-                settings = {
-                  center_password_text = true;
-                  layout = "compact";
-                  show_caps_lock = true;
-                  show_keyboard_layout = false;
-                  show_login_button = false;
-                  show_unlock_hint = false;
-                };
+            lockscreen_widgets =
+              let
+                mk_login_box =
+                  output: cx: cy:
+                  {
+                    type = "login_box";
+                    inherit output;
+                    box_width = 400.0;
+                    box_height = 70.0;
+                    inherit cx cy;
+                    settings = {
+                      center_password_text = true;
+                      layout = "compact";
+                      show_caps_lock = true;
+                      show_keyboard_layout = false;
+                      show_login_button = false;
+                      show_unlock_hint = false;
+                    };
+                  };
+              in
+              {
+                enabled = true;
+                widget_order = [
+                  "lockscreen-login-box@eDP-1"
+                  "lockscreen-login-box@DP-8"
+                  "lockscreen-login-box@DP-9"
+                  "lockscreen-login-box@DP-10"
+                  "lockscreen-login-box@DP-11"
+                  "lockscreen-login-box@DP-12"
+                ];
+                widget."lockscreen-login-box@eDP-1" = mk_login_box "eDP-1" 752.0 501.0;
+                widget."lockscreen-login-box@DP-8" = mk_login_box "DP-8" 960.0 540.0;
+                widget."lockscreen-login-box@DP-9" = mk_login_box "DP-9" 960.0 540.0;
+                widget."lockscreen-login-box@DP-10" = mk_login_box "DP-10" 960.0 540.0;
+                widget."lockscreen-login-box@DP-11" = mk_login_box "DP-11" 960.0 540.0;
+                widget."lockscreen-login-box@DP-12" = mk_login_box "DP-12" 960.0 540.0;
               };
-            };
 
             widget = {
               workspaces = {
@@ -162,6 +176,7 @@
                 focused_color = "primary";
                 occupied_color = "secondary";
                 empty_color = "on_primary";
+                scale = 1.2;
               };
 
               active_window = {
